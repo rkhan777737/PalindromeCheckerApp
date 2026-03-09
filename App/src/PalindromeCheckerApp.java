@@ -1,74 +1,35 @@
-import java.util.ArrayDeque;
-import java.util.LinkedList;
-
 public class PalindromeCheckerApp {
-    // Node structure for a Singly Linked List
-    static class Node {
-        char data;
-        Node next;
-        Node(char data) { this.data = data; }
-    }
-
     public static void main(String[] args) {
         // Define the input string
-        String input = "level";
+        String input = "madam";
 
-        // Convert string to linked list
-        Node head = null, tail = null;
-        for (char c : input.toCharArray()) {
-            Node newNode = new Node(c);
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
+        // Start the recursive check from index 0 to length - 1
+        boolean isPalindrome = check(input, 0, input.length() - 1);
 
-        // Flag to track palindrome state
-        boolean isPalindrome = checkPalindrome(head);
-
-        // Output results
+        // Output results to console
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
     }
 
-    public static boolean checkPalindrome(Node head) {
-        if (head == null || head.next == null) return true;
-
-        // Use Fast and Slow Pointer to find the middle
-        Node slow = head;
-        Node fast = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+    /**
+     * Recursively checks whether a string is a palindrome.
+     * * @param s      Input string
+     * @param start  Starting index
+     * @param end    Ending index
+     * @return true if palindrome, otherwise false
+     */
+    private static boolean check(String s, int start, int end) {
+        // Base Condition: If pointers cross or meet, it's a palindrome
+        if (start >= end) {
+            return true;
         }
 
-        // Reverse the second half in-place
-        Node secondHalf = reverseList(slow);
-        Node firstHalf = head;
-
-        // Compare halves
-        Node temp = secondHalf;
-        while (temp != null) {
-            if (firstHalf.data != temp.data) return false;
-            firstHalf = firstHalf.next;
-            temp = temp.next;
+        // Check if characters at current positions match
+        if (s.charAt(start) != s.charAt(end)) {
+            return false;
         }
-        return true;
-    }
 
-    // Helper for in-place reversal
-    private static Node reverseList(Node head) {
-        Node prev = null;
-        Node current = head;
-        while (current != null) {
-            Node nextNode = current.next;
-            current.next = prev;
-            prev = current;
-            current = nextNode;
-        }
-        return prev;
+        // Recursive call: move indices toward the center
+        return check(s, start + 1, end - 1);
     }
 }
