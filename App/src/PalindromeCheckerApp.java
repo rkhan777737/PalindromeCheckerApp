@@ -1,35 +1,26 @@
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        // Define the input string
-        String input = "madam";
+        // Define the input string with spaces and mixed case
+        String input = "A man a plan a canal Panama";
 
-        // Start the recursive check from index 0 to length - 1
-        boolean isPalindrome = check(input, 0, input.length() - 1);
+        // Normalize string: Remove all spaces and convert to lowercase
+        // [^a-zA-Z0-9] or simple replaceAll(" ", "") can be used
+        String normalized = input.replaceAll(" ", "").toLowerCase();
+
+        boolean isPalindrome = true;
+
+        // Compare characters from both ends using the normalized length
+        for (int i = 0; i < normalized.length() / 2; i++) {
+
+            // Compare symmetric characters
+            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
+                isPalindrome = false;
+                break;
+            }
+        }
 
         // Output results to console
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
-    }
-
-    /**
-     * Recursively checks whether a string is a palindrome.
-     * * @param s      Input string
-     * @param start  Starting index
-     * @param end    Ending index
-     * @return true if palindrome, otherwise false
-     */
-    private static boolean check(String s, int start, int end) {
-        // Base Condition: If pointers cross or meet, it's a palindrome
-        if (start >= end) {
-            return true;
-        }
-
-        // Check if characters at current positions match
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call: move indices toward the center
-        return check(s, start + 1, end - 1);
     }
 }
