@@ -1,73 +1,48 @@
-import java.util.*;
-
 /**
- * UC12: Strategy Pattern Implementation
- * Goal: Choose a palindrome algorithm dynamically.
+ * UC13: Performance Comparison
+ * Goal: Compare the performance of different palindrome approaches.
  */
-
-// Define the PalindromeStrategy interface
-interface PalindromeStrategy {
-    boolean check(String input);
-}
-
-/**
- * Stack-based implementation of the strategy.
- * Uses LIFO behavior to reverse characters for comparison.
- */
-class StackStrategy implements PalindromeStrategy {
-    @Override
-    public boolean check(String input) {
-        Stack<Character> stack = new Stack<>();
-        // Push characters onto the stack
-        for (char c : input.toCharArray()) {
-            stack.push(c);
-        }
-        // Compare by popping
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) return false;
-        }
-        return true;
-    }
-}
-
-/**
- * Deque-based implementation of the strategy.
- * Compares front and rear elements.
- */
-class DequeStrategy implements PalindromeStrategy {
-    @Override
-    public boolean check(String input) {
-        Deque<Character> deque = new ArrayDeque<>();
-        for (char c : input.toCharArray()) {
-            deque.addLast(c);
-        }
-        // Compare until empty or one remains
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) return false;
-        }
-        return true;
-    }
-}
-
-// Main App to demonstrate Polymorphism
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         String input = "level";
 
-        // Inject Stack Strategy at runtime
-        PalindromeStrategy strategy = new StackStrategy();
-        System.out.println("Using Stack Strategy:");
-        printResult(input, strategy);
+        // 1. Performance of Character Array (UC4)
+        long startUC4 = System.nanoTime();
+        checkUC4(input);
+        long endUC4 = System.nanoTime();
+        displayResult("UC4 (Char Array)", input, (endUC4 - startUC4));
 
-        // Inject Deque Strategy at runtime
-        strategy = new DequeStrategy();
-        System.out.println("\nUsing Deque Strategy:");
-        printResult(input, strategy);
+        // 2. Performance of Stack-Based (UC5)
+        long startUC5 = System.nanoTime();
+        checkUC5(input);
+        long endUC5 = System.nanoTime();
+        displayResult("UC5 (Stack)", input, (endUC5 - startUC5));
     }
 
-    private static void printResult(String input, PalindromeStrategy strategy) {
-        boolean result = strategy.check(input);
+    private static void displayResult(String method, String input, long duration) {
+        System.out.println("Method: " + method);
         System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + result);
+        System.out.println("Execution Time : " + duration + " ns");
+        System.out.println("-----------------------------------");
+    }
+
+    // internal implementation for UC4
+    private static boolean checkUC4(String s) {
+        char[] chars = s.toCharArray();
+        int start = 0, end = chars.length - 1;
+        while (start < end) {
+            if (chars[start++] != chars[end--]) return false;
+        }
+        return true;
+    }
+
+    // internal implementation for UC5
+    private static boolean checkUC5(String s) {
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+        for (char c : s.toCharArray()) stack.push(c);
+        for (char c : s.toCharArray()) {
+            if (c != stack.pop()) return false;
+        }
+        return true;
     }
 }
