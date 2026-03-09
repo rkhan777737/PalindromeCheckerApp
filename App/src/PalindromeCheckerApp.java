@@ -1,41 +1,36 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-/**
- * Use Case 3: Reverse String Based Palindrome Check (Dynamic)
- * * This version takes input from the user, reverses it using a loop,
- * and compares the original with the reversed version.
- */
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        // Declare and initialize the input string
-        String input = "civic";
+        // Define the input string
+        String input = "refer";
 
-        // Create a Queue to store characters in FIFO order
-        Queue<Character> queue = new LinkedList<>();
+        // Create a Deque to store characters
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Create a Stack to store characters in LIFO order
-        Stack<Character> stack = new Stack<>();
-
-        // Insert each character into both queue and stack
+        // Add each character to the deque
         for (char c : input.toCharArray()) {
-            queue.add(c);
-            stack.push(c);
+            deque.addLast(c);
         }
 
-        // Flag to track palindrome status
+        // Flag to track palindrome result
         boolean isPalindrome = true;
 
-        // Compare characters until the queue becomes empty
-        while (!queue.isEmpty()) {
-            // FIFO (Queue) vs LIFO (Stack)
-            if (queue.poll() != stack.pop()) {
+        // Continue comparison while more than one element exists
+        while (deque.size() > 1) {
+            // Remove first and last characters
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
+
+            // Compare the removed characters
+            if (first != last) {
                 isPalindrome = false;
                 break;
             }
         }
 
+        // Output results
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
     }
