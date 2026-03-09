@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * Use Case 3: Reverse String Based Palindrome Check (Dynamic)
@@ -8,33 +8,29 @@ import java.util.Scanner;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         // Declare and initialize the input string
-        String input = "radar";
+        String input = "noon";
 
-        // Convert the string into a character array
-        char[] chars = input.toCharArray();
+        // Create a Stack to store characters
+        Stack<Character> stack = new Stack<>();
 
-        // Initialize pointer at the beginning
-        int start = 0;
-
-        // Initialize pointer at the end
-        int end = chars.length - 1;
+        // Push each character of the string into the stack
+        for (char c : input.toCharArray()) {
+            stack.push(c); // Adds characters in original order
+        }
 
         // Assume palindrome initially
         boolean isPalindrome = true;
 
-        // Continue comparison until pointers cross
-        while (start < end) {
-            // Compare start & end characters
-            if (chars[start] != chars[end]) {
+        // Iterate again through original string and compare with popped values
+        for (char c : input.toCharArray()) {
+            // Pop returns the top element (the last character pushed)
+            if (c != stack.pop()) {
                 isPalindrome = false;
-                break; // Exit loop if a mismatch is found
+                break;
             }
-            // Move pointers towards the center
-            start++;
-            end--;
         }
 
-        // Output results to match the required console format
+        // Print result to console
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
     }
