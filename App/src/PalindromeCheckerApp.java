@@ -1,4 +1,4 @@
-import java.util.Scanner; // Import for user input
+import java.util.Scanner;
 
 /**
  * Use Case 3: Reverse String Based Palindrome Check (Dynamic)
@@ -7,30 +7,35 @@ import java.util.Scanner; // Import for user input
  */
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        // 1. Initialize Scanner to read from the keyboard
-        Scanner scanner = new Scanner(System.in);
+        // Declare and initialize the input string
+        String input = "radar";
 
-        // 2. Prompt and capture user input
-        System.out.print("Enter text to check: ");
-        String input = scanner.nextLine(); // Reads the whole line
+        // Convert the string into a character array
+        char[] chars = input.toCharArray();
 
-        String reversed = ""; // Stores the reversed version
+        // Initialize pointer at the beginning
+        int start = 0;
 
-        // 3. Iterate from the last character to the first
-        // Hint: for (int i = input.length() - 1; i >= 0; i--)
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed += input.charAt(i); // Build reversed string
+        // Initialize pointer at the end
+        int end = chars.length - 1;
+
+        // Assume palindrome initially
+        boolean isPalindrome = true;
+
+        // Continue comparison until pointers cross
+        while (start < end) {
+            // Compare start & end characters
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break; // Exit loop if a mismatch is found
+            }
+            // Move pointers towards the center
+            start++;
+            end--;
         }
 
-        // 4. Compare original and reversed using equals()
-        boolean isPalindrome = input.equals(reversed);
-
-        // 5. Display the results
-        System.out.println("Input text: " + input);
-        System.out.println("Reversed text: " + reversed);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
-
-        // 6. Close the scanner
-        scanner.close();
+        // Output results to match the required console format
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + isPalindrome);
     }
 }
