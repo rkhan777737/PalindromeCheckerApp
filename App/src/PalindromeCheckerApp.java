@@ -1,23 +1,40 @@
+/**
+ * UC11: Object-Oriented Palindrome Service
+ * This class encapsulates the logic for palindrome validation.
+ */
+class PalindromeService {
+
+    /**
+     * Exposes the palindrome check logic.
+     * Uses an efficient two-pointer internal approach.
+     */
+    public boolean checkPalindrome(String input) {
+        // Initialize pointers
+        int start = 0;
+        int end = input.length() - 1;
+
+        // Compare characters moving inward
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+}
+
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        // Define the input string with spaces and mixed case
-        String input = "A man a plan a canal Panama";
+        // Define the input string to validate
+        String input = "racecar";
 
-        // Normalize string: Remove all spaces and convert to lowercase
-        // [^a-zA-Z0-9] or simple replaceAll(" ", "") can be used
-        String normalized = input.replaceAll(" ", "").toLowerCase();
+        // Create an instance of the PalindromeService (Encapsulation)
+        PalindromeService service = new PalindromeService();
 
-        boolean isPalindrome = true;
-
-        // Compare characters from both ends using the normalized length
-        for (int i = 0; i < normalized.length() / 2; i++) {
-
-            // Compare symmetric characters
-            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
-        }
+        // Call the encapsulated method
+        boolean isPalindrome = service.checkPalindrome(input);
 
         // Output results to console
         System.out.println("Input : " + input);
