@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hostel Booking System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <h1 class="logo">🏨 Hostel Booking System</h1>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#add-student-section">Add Student</a></li>
+        <li><a href="#book-section">Book Room</a></li>
+        <li><a href="#students-section">Students</a></li>
+        <li><a href="#bookings-section">Bookings</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container main-content">
+    <!-- Home Section -->
+    <section id="home" class="section">
+      <h2>Welcome to Hostel Booking System</h2>
+      <p>Manage your hostel bookings efficiently and easily.</p>
+      <p>Select an option from the menu above to get started.</p>
+    </section>
+
+    <!-- Add Student Section -->
+    <section id="add-student-section" class="section">
+      <h2>Add New Student</h2>
+      
+      <div class="form-group">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Enter student name" class="input-field">
+      </div>
+
+      <button onclick="addStudent()" class="button button-primary">Add Student</button>
+      <div id="addStudentMessage" class="message" style="display:none;"></div>
+    </section>
+
+    <!-- Book Room Section -->
+    <section id="book-section" class="section">
+      <h2>Book a Room</h2>
+
+      <div class="form-group">
+        <label for="bookStudentId">Student ID:</label>
+        <select id="bookStudentId" class="input-field">
+          <option value="">Select a student</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="bookRoomId">Room ID:</label>
+        <select id="bookRoomId" class="input-field">
+          <option value="">Select a room</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="bookBedId">Bed ID:</label>
+        <select id="bookBedId" class="input-field">
+          <option value="">Select a bed</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="checkinDate">Check-in Date:</label>
+        <input type="date" id="checkinDate" class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="checkoutDate">Check-out Date:</label>
+        <input type="date" id="checkoutDate" class="input-field">
+      </div>
+
+      <button onclick="bookRoom()" class="button button-primary">Book Room</button>
+      <div id="bookingMessage" class="message" style="display:none;"></div>
+    </section>
+
+    <!-- Students Section -->
+    <section id="students-section" class="section">
+      <h2>Students List</h2>
+      <button onclick="loadStudents()" class="button button-secondary">Refresh Students</button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="studentsList">
+          <tr>
+            <td colspan="3" style="text-align: center;">Click "Refresh Students" to load data</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Available Beds Section -->
+    <section class="section">
+      <h2>Available Beds</h2>
+      <button onclick="loadAvailableBeds()" class="button button-secondary">Refresh Available Beds</button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Bed ID</th>
+            <th>Room ID</th>
+            <th>Hostel</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="bedsList">
+          <tr>
+            <td colspan="4" style="text-align: center;">Click "Refresh Available Beds" to load data</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Bookings Section -->
+    <section id="bookings-section" class="section">
+      <h2>All Bookings</h2>
+      <button onclick="loadBookings()" class="button button-secondary">Refresh Bookings</button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Student Name</th>
+            <th>Room ID</th>
+            <th>Bed ID</th>
+            <th>Check-in Date</th>
+            <th>Check-out Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsList">
+          <tr>
+            <td colspan="8" style="text-align: center;">Click "Refresh Bookings" to load data</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Hostel Booking System. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
